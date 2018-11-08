@@ -76,7 +76,7 @@ module GroupedScope
     end
     
     def grouped_scoped
-      return proxy_class.scoped if all_grouped?
+      return proxy_class.all if all_grouped?
       proxy_class.where present? ? arel_group_id.eq(proxy_owner.group_id) : arel_primary_key.eq(proxy_owner.id)
     end
     
