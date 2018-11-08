@@ -121,9 +121,9 @@ module GroupedScope
 end
 
 class Department < ActiveRecord::Base
-  scope :it, where(:name => 'IT')
-  scope :hr, where(:name => 'Human Resources')
-  scope :finance, where(:name => 'Finance')
+  scope :it, -> { where(:name => 'IT') }
+  scope :hr, -> { where(:name => 'Human Resources') }
+  scope :finance, -> { where(:name => 'Finance') }
   has_many :department_memberships
   has_many :employees, :through => :department_memberships
 end
@@ -134,11 +134,16 @@ class DepartmentMembership < ActiveRecord::Base
 end
 
 class Report < ActiveRecord::Base
-  scope :with_urgent_title, where(:title => 'URGENT')
-  scope :with_urgent_body, where("body LIKE '%URGENT%'")
+  scope :with_urgent_title, -> { where(:title => 'URGENT') }
+  scope :urgent, -> { where(:title => 'URGENT') }
+  scope :with_urgent_body, -> { where("body LIKE '%URGENT%'") }
   belongs_to :employee
-  def urgent_title? ; self[:title] == 'URGENT' ; end
-  def urgent_body? ; self[:body] =~ /URGENT/ ; end
+  def urgent_title?
+    self[:title] == 'URGENT'
+  end
+  def urgent_body?
+    self[:body] =~ /URGENT/
+  end
 end
 
 class LegacyReport < ActiveRecord::Base
@@ -147,7 +152,11 @@ end
 
 class Employee < ActiveRecord::Base
   scope :email_for_actionmoniker, where("email LIKE '%@actionmoniker.com'")
-  has_many :reports do ; def urgent ; find(:all,:conditions => {:title => 'URGENT'}) ; end ; end
+  has_many :reports do
+    def urgent
+      where(:title => 'URGENT')
+    end
+  end
   has_many :taxonomies, :as => :classable
   has_many :department_memberships
   has_many :departments, :through => :department_memberships
