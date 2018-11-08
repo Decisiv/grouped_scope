@@ -64,14 +64,14 @@ module GroupedScope
       patterns_to_match.each do |pattern|
         failed_patterns << pattern unless $queries_executed.any?{ |sql| pattern === sql }
       end
-      assert failed_patterns.empty?, "Query pattern(s) #{failed_patterns.map{ |p| p.inspect }.join(', ')} not found.#{$queries_executed.size == 0 ? '' : "\nQueries:\n#{$queries_executed.join("\n")}"}"
+      assert failed_patterns.empty?, "Query pattern(s) #{failed_patterns.map{ |p| p.inspect }.join(', ')} not found.#{$queries_executed.size == 0 ? ' None executed.' : "\nQueries:\n#{$queries_executed.join("\n")}"}"
     end
 
     def assert_queries(num = 1)
       $queries_executed = []
       yield
     ensure
-      assert_equal num, $queries_executed.size, "#{$queries_executed.size} instead of #{num} queries were executed.#{$queries_executed.size == 0 ? '' : "\nQueries:\n#{$queries_executed.join("\n")}"}"
+      assert_equal num, $queries_executed.size, "#{$queries_executed.size} instead of #{num} queries were executed.#{$queries_executed.size == 0 ?  'None executed.' : "\nQueries:\n#{$queries_executed.join("\n")}"}"
     end
 
     def assert_no_queries
