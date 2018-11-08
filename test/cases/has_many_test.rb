@@ -70,7 +70,7 @@ class GroupedScope::HasManyTest < GroupedScope::TestCase
       
       it 'use association extension SQL along with group reflection' do
         assert_sql(select_from_reports, where_for_groups(@e2.group_id), where_for_urgent_title) do
-          @e2.group.reports.urgent
+          @e2.group.reports.urgent.load
         end
       end
     

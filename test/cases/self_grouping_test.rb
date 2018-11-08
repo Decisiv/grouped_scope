@@ -30,10 +30,9 @@ class GroupedScope::SelfGrouppingTest < GroupedScope::TestCase
     
     it 'return correct predicate for GroupedScope::SelfGroupping object' do
       @employee.update_attribute :group_id, 82
-      expected_sql = /"group_id" IN \(SELECT "employees"\."id" FROM "employees"  WHERE "employees"\."group_id" = 82/
-      assert_sql(expected_sql) { Employee.where(:group_id => @employee.group).all }
-      assert_sql(expected_sql) { Employee.all(:conditions => {:group_id => @employee.group}) }
-      assert_equal [@employee], Employee.where(:group_id => @employee.group).all
+      expected_sql = /"group_id" IN \(SELECT "employees"\."id" FROM "employees"  WHERE "employees"\."group_id" = /
+      assert_sql(expected_sql) { Employee.where(:group_id => @employee.group).load }
+      assert_equal [@employee], Employee.where(:group_id => @employee.group).load
     end
     
     it 'allows you to ask if the group is present' do
