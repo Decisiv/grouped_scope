@@ -14,7 +14,7 @@ module GroupedScope
             column, value = column_value
             attributes[column] = value.arel_table[column.to_s].in(value.ids_sql)
           end
-          build_from_hash_without_grouped_scope(engine, attributes, default_table, allow_table_name)
+          build_from_hash_without_grouped_scope(engine, attributes, default_table)
         end
         
       end
