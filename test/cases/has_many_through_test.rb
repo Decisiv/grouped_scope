@@ -13,13 +13,13 @@ class GroupedScope::HasManyThroughTest < GroupedScope::TestCase
   describe 'For default association' do
 
     it 'scope to owner' do
-      assert_sql(/"employee_id" = #{@e1.id}/) do
+      assert_sql(/"employee_id" = \?/) do
         @e1.departments(true)
       end
     end
     
     it 'scope count to owner' do
-      assert_sql(/"employee_id" = #{@e1.id}/) do
+      assert_sql(/"employee_id" = \?/) do
         @e1.departments(true).count
       end
     end

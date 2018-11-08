@@ -9,13 +9,13 @@ class GroupedScope::HasManyTest < GroupedScope::TestCase
     end
     
     it 'scopes existing association to owner' do
-      assert_sql(/"employee_id" = #{@employee.id}/) do
+      assert_sql(/"employee_id" = \?/) do
         @employee.reports(true)
       end
     end
     
     it 'scopes group association to owner when no group present' do
-      assert_sql(/"employee_id" = #{@employee.id}/) do
+      assert_sql(/"employee_id" = \?/) do
         @employee.group.reports(true)
       end
     end
@@ -35,7 +35,7 @@ class GroupedScope::HasManyTest < GroupedScope::TestCase
       end
       
       it 'scope count sql to owner' do
-        assert_sql(/SELECT COUNT\(\*\)/,/"employee_id" = #{@e1.id}/) do
+        assert_sql(/SELECT COUNT\(\*\)/,/"employee_id" = \?/) do
           @e1.reports(true).count
         end
       end
@@ -112,13 +112,13 @@ class GroupedScope::HasManyTest < GroupedScope::TestCase
     end
   
     it 'scope existing association to owner' do
-      assert_sql(/"legacy_reports"."email" = '#{@employee.id}'/) do
+      assert_sql(/"legacy_reports"."email" = \?/) do
         @employee.reports(true)
       end
     end
     
     it 'scope group association to owner, since no group is present' do
-      assert_sql(/"legacy_reports"."email" = '#{@employee.id}'/) do
+      assert_sql(/"legacy_reports"."email" = \?/) do
         @employee.group.reports(true)
       end
     end
