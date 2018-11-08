@@ -21,5 +21,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest' #,     '~> 2.8.1'
   s.add_development_dependency 'factory_girl' #, '~> 2.3.2'
   s.add_development_dependency 'mocha',        '~> 0.10.0'
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-byebug'
+
 end
 
