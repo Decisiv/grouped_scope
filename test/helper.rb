@@ -80,7 +80,7 @@ module GroupedScope
     
     def setup_database(options)
       ActiveRecord::Base.class_eval do
-        silence do
+
           connection.create_table :employees, :force => true do |t|
             t.column :name,         :string
             t.column :email,        :string
@@ -113,7 +113,7 @@ module GroupedScope
             t.column :foo,          :string
             t.column :bar,          :string
           end
-        end
+        
       end
     end
     
