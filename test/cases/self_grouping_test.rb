@@ -95,7 +95,7 @@ class GroupedScope::SelfGrouppingTest < GroupedScope::TestCase
   describe 'Calling #group' do
     
     it 'returns a active record relation' do
-      assert_instance_of ActiveRecord::Relation, FactoryGirl.create(:employee).group
+      assert_instance_of ActiveRecord::Relation::ActiveRecord_Relation_Employee, FactoryGirl.create(:employee).group
     end
     
     describe 'with a NIL group_id' do
